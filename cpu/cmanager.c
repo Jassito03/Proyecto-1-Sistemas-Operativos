@@ -1,4 +1,4 @@
-catnl#include "./cpu_t.h"
+#include "./cpu_t.h"
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
