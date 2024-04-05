@@ -2,7 +2,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string,h>
+#include <string.h>
 
 #define CMANAGER_MAX_BUFFER_SIZE 100
 
