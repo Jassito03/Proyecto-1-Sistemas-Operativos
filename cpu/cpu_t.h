@@ -2,7 +2,7 @@
 
 typedef struct {
   // Identifier
-  char name[5];
+  char *name;
   // Processes executing in user mode
   int cant_user_process;
   // Niced processes executing in user mode
@@ -24,4 +24,4 @@ typedef struct {
   // Time spent running a niced guest
   int cant_guest_nice;
 } cpu_t;
-void cpu_t_init(cpu_t *, char[5], int[10]);
+void cpu_t_init(cpu_t *, char *, int[10]);
