@@ -69,7 +69,7 @@ void mostrarEstadisticas(const char *nombreDisco, double espacioTotal, double es
     double espacioLibre = espacioTotalConv - espacioUsadoConv;
     printf("|------------------------------------------------------------------|\n");
     printf("| %-12s | %-14s | %-14s | %-15s |\n", "Nombre", "Utilizado", "Libre", "Total");
-    printf("| %-11s  | %-10.2f %s | %-10.2f %s | %-11.2f %s |\n", nombreDisco, espacioUsado, unidad, espacioLibre, unidad, espacioTotal, unidad);
+    printf("| %-11s  | %-10.2f %s | %-10.2f %s | %-11.2f %s |\n", nombreDisco, espacioUsadoConv, unidad, espacioLibre, unidad, espacioTotalConv, unidad);
     printf("|------------------------------------------------------------------|\n");
 }
 
