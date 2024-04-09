@@ -7,7 +7,7 @@
 #define LINEA_TAM 256
 #define BUFFER_TAM 256
 
-unsigned long obtenerMemoriaTotal() {
+unsigned long memory_get_total() {
   FILE *file = fopen("/proc/meminfo", "r");
   if (!file) {
     perror("Error al ejeccutar el comando");
@@ -25,7 +25,7 @@ unsigned long obtenerMemoriaTotal() {
   return memoriaTotal;
 }
 
-void leerInformacionProceso(const char *pid, const char *tipoMemoria, unsigned long memoriaTotal) {
+void memory_read_process_info(const char *pid, const char *tipoMemoria, unsigned long memoriaTotal) {
   char path[BUFFER_TAM], linea[LINEA_TAM], nombre[BUFFER_TAM] = "";
   snprintf(path, sizeof(path), "/proc/%s/status", pid);
   FILE *file = fopen(path, "r");
@@ -48,8 +48,8 @@ void leerInformacionProceso(const char *pid, const char *tipoMemoria, unsigned l
   fclose(file);
 }
 
-void mostrarUsoMemoria(const char *tipoMemoria) {
-  unsigned long memoriaTotal = obtenerMemoriaTotal();
+void memory_show_usage(const char *tipoMemoria) {
+  unsigned long memoriaTotal = memory_get_total();
   printf("| %-9s | %-25s | %-11s  |\n", "PID", "Nombre", "Memoria (%)");
   printf("|------------------------------------------------------|\n");
   DIR *dir = opendir("/proc");
@@ -61,38 +61,38 @@ void mostrarUsoMemoria(const char *tipoMemoria) {
   struct dirent *entrada;
   while ((entrada = readdir(dir)) != NULL) {
     if (entrada->d_type == DT_DIR && strtol(entrada->d_name, NULL, 10) > 0) {
-      leerInformacionProceso(entrada->d_name, tipoMemoria, memoriaTotal);
+      memory_read_process_info(entrada->d_name, tipoMemoria, memoriaTotal);
     }
   }
   closedir(dir);
 }
 
-void mostrarUsoMemoriaVirtual() {
+void memory_show_virtual_usage() {
   printf("|------------------------------------------------------|\n");
-  mostrarUsoMemoria("VmSize:");
-  printf("|------------------------------------------------------|\n");
-}
-
-void mostrarUsoMemoriaReal() {
-  printf("|------------------------------------------------------|\n");
-  mostrarUsoMemoria("VmRSS:");
+  memory_show_usage("VmSize:");
   printf("|------------------------------------------------------|\n");
 }
 
-void mostrarUsoMemoriaVirtualPid(const char *pid) {
-  unsigned long memoriaTotal = obtenerMemoriaTotal();
+void memory_show_real_usage() {
+  printf("|------------------------------------------------------|\n");
+  memory_show_usage("VmRSS:");
+  printf("|------------------------------------------------------|\n");
+}
+
+void memory_usage_virtual_pid(const char *pid) {
+  unsigned long memoriaTotal = memory_get_total();
   printf("|------------------------------------------------------|\n");
   printf("| %-9s | %-25s | %-8s  |\n", "PID", "Nombre", "Memoria (%)");
   printf("|-----------|---------------------------|--------------|\n");
-  leerInformacionProceso(pid, "VmSize:", memoriaTotal);
+  memory_read_process_info(pid, "VmSize:", memoriaTotal);
   printf("|------------------------------------------------------|\n");
 }
 
-void mostrarUsoMemoriaRealPid(const char *pid) {
-  unsigned long memoriaTotal = obtenerMemoriaTotal();
+void memory_usage_real_pid(const char *pid) {
+  unsigned long memoriaTotal = memory_get_total();
   printf("|------------------------------------------------------|\n");
   printf("| %-9s | %-25s | %-8s  |\n", "PID", "Nombre", "Memoria (%)");
   printf("|------------------------------------------------------|\n");
-  leerInformacionProceso(pid, "VmRSS:", memoriaTotal);
+  memory_read_process_info(pid, "VmRSS:", memoriaTotal);
   printf("|------------------------------------------------------|\n");
 }
