@@ -11,9 +11,30 @@ int main(int argc, char *argv[]) {
     }
 
     if (strcmp(argv[1], "cpu") == 0) {
-      if (argc == 3) {
+      if (argc == 2) {
         pid = fork();
+        if (pid < 0) {
+          perror("Error al ejecutar el comando");
+          exit(EXIT_FAILURE);
+        }
 
+        if (pid == 0) {
+          close(data[0]);
+          // El hijo realiza el calculo del uso del CPU del PID en los últimos 5 minutos y se lo pasa al padre
+          float cpu_usage = cpu_total_usage(argv[2]);
+          write(data[1], &cpu_usage, sizeof(cpu_usage));
+          close(data[1]);
+        } else {
+          waitpid(pid, NULL, 0);
+          close(data[1]);
+          // El padre lee la información y la presenta
+          float read_pipe;
+          read(data[0], &read_pipe, sizeof(read_pipe));
+          cpu_show_usage(read_pipe);
+          close(data[0]);
+        }
+      } else if (argc == 3) {
+        pid = fork();
         if (pid < 0) {
           perror("Error al ejecutar el comando");
           exit(EXIT_FAILURE);
