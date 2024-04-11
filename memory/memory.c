@@ -7,6 +7,18 @@
 #define LINEA_TAM 256
 #define BUFFER_TAM 256
 
+// Hacer el objeto proceso con pid, nombre y memoria
+
+// Metodo para saber la cantidad de procesos "ls /proc | grep -c "^[0-9]" y restarle 1
+
+// Metodo para hacer todos los objetos proceso dependiendo del argumento [-v | -r]
+
+// Metodo para la conversion del tamano de la memoria
+
+// Metodo para mostrar el uso de memoria real general y virtual general dependiendo del parametro
+
+// Metodo para mostrar el uso de memoria de un PID dependiendo del parametro
+
 unsigned long memory_get_total() {
   FILE *file = fopen("/proc/meminfo", "r");
   if (!file) {

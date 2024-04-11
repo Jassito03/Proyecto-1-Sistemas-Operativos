@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Refactorizar
+// Llamar por medio de un exec a cada bin de cada subprograma
+
 int main(int argc, char *argv[]) {
   if (argc > 1) {
     if (strcmp(argv[1], "disco") == 0) {
