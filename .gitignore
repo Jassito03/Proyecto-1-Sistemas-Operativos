@@ -1,7 +1,3 @@
 #Archivos de Visual Studio
 .vscode/
-bin/main
-bin/main
-objs/disk/disk.o
-objs/main.o
-objs/memory/memory.o
+
