@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
       }
     } else {
       fprintf(stderr, "Uso: %s [cpu] [PID opcional]\n", argv[0]);
-      fprintf(stderr, "Uso: %s [disco [-tm | -tg]\n", argv[0]);
+      fprintf(stderr, "Uso: %s [disco] [-tm | -tg]\n", argv[0]);
       fprintf(stderr, "Uso: %s [memoria] [-r | -v] [PID opcional]\n", argv[0]);
       return EXIT_FAILURE;
     }
