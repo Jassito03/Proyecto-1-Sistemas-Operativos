@@ -1,4 +1,5 @@
-EJ = bin/programa bin/cpu bin/disco #bin/memoria
+EJ = bin/programa bin/cpu bin/disco install #bin/memoria
+INSTALL_PROGRAMS = install_cpu install_disco #install_memoria
 
 #Variables para CPU
 INCLUDE_CPU = -Icpu
@@ -54,4 +55,22 @@ clean: clean/objs clean/bin
 clean/objs:
 	find ./objs -type f -name "*.o" -exec rm {} \;
 clean/bin:
-	rm ./bin/programa ./bin/cpu ./bin/disco ./bin/memoria 
+	rm ./bin/programa ./bin/cpu ./bin/disco 
+#./bin/memoria
+
+install: $(INSTALL_PROGRAMS)
+	sudo install -m 0755 bin/programa $(DESTDIR)/usr/local/bin/programa
+
+install_cpu:
+	sudo install -m 0755 bin/cpu $(DESTDIR)/usr/local/bin/cpu
+
+install_disco:
+	sudo install -m 0755 bin/disco $(DESTDIR)/usr/local/bin/disco
+
+install_memoria:
+	sudo install -m 0755 bin/memoria $(DESTDIR)/usr/local/bin/memoria
+
+uninstall: clean
+	sudo find /usr/local/bin -type f -name programa -exec rm {} \;
+	sudo find /usr/local/bin -type f -name cpu -exec rm {} \;
+	sudo find /usr/local/bin -type f -name disco -exec rm {} \;

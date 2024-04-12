@@ -5,9 +5,9 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define BIN_CPU "./bin/cpu"
-#define BIN_DISK "./bin/disco"
-#define BIN_MEMORY "./bin/memoria"
+#define BIN_CPU "cpu"
+#define BIN_DISK "disco"
+#define BIN_MEMORY "memoria"
 
 void main_not_arguments(char *command, char *arg[]) {
   pid_t pid = fork();
@@ -64,14 +64,14 @@ int main(int argc, char *argv[]) {
       }
     } else {
       fprintf(stderr, "Uso: %s [cpu] [PID opcional]\n", argv[0]);
-      fprintf(stderr, "Uso: %s [disco [opciones]\n", argv[0]);
-      fprintf(stderr, "Uso: %s [memoria] [opciones] [PID opcional]\n", argv[0]);
+      fprintf(stderr, "Uso: %s [disco [-tm | -tg]\n", argv[0]);
+      fprintf(stderr, "Uso: %s [memoria] [-r | -v] [PID opcional]\n", argv[0]);
       return EXIT_FAILURE;
     }
   } else {
     fprintf(stderr, "Uso: %s [cpu] [PID opcional]\n", argv[0]);
-    fprintf(stderr, "Uso: %s [disco [opciones]\n", argv[0]);
-    fprintf(stderr, "Uso: %s [memoria] [opciones] [PID opcional]\n", argv[0]);
+    fprintf(stderr, "Uso: %s [disco [-tm | -tg]\n", argv[0]);
+    fprintf(stderr, "Uso: %s [memoria] [-r | -v] [PID opcional]\n", argv[0]);
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;

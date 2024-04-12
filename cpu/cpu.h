@@ -1,3 +1,6 @@
+#ifndef CPU_H
+#define CPU_H
+
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,3 +12,5 @@ unsigned long cpu_total_time();
 float cpu_usage_pid_in_5_min(const char *);
 void cpu_show_usage_pid_in_5_min(const char *, float);
 void cpu_show_usage(float);
+
+#endif // CPU_H

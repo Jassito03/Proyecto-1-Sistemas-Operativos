@@ -1,3 +1,6 @@
+#ifndef MANAGER_H
+#define MANAGER_H
+
 #include "./disk.h"
 #include <ctype.h>
 #include <errno.h>
@@ -11,3 +14,5 @@
 
 void manager_execute(char *);
 int main(int, char *[]);
+
+#endif // MANAGER_H
