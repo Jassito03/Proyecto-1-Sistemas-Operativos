@@ -19,7 +19,12 @@ DISK_OBJS = $(DISK_OBJS_PATH)disk_t.o $(DISK_OBJS_PATH)disk.o $(DISK_OBJS_PATH)m
 all: $(EJ)
 
 #Compila en esta carpeta
-bin: bin/programa bin/cpu bin/disco bin/memoria
+bin: dirs bin/programa bin/cpu bin/disco bin/memoria
+
+#Crea los directorios
+dirs:
+	mkdir bin
+	mkdir objs objs/cpu objs/disk objs/memory
 
 #Compila MAIN
 bin/programa: objs/main.o
@@ -81,6 +86,6 @@ uninstall: clean
 clean: clean/objs clean/bin
 
 clean/objs:
-	find ./objs -type f -name "*.o" -exec rm {} \;
+	rm -r ./objs
 clean/bin:
-	rm ./bin/programa ./bin/cpu ./bin/disco ./bin/memoria
+	rm -r ./bin
