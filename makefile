@@ -1,5 +1,5 @@
-EJ = bin/programa bin/cpu bin/disco install #bin/memoria
-INSTALL_PROGRAMS = install_cpu install_disco #install_memoria
+EJ = bin/programa bin/cpu bin/disco bin/memoria install
+INSTALL_PROGRAMS = install_cpu install_disco install_memoria
 
 #Variables para CPU
 INCLUDE_CPU = -Icpu
@@ -17,6 +17,9 @@ DISK_OBJS_PATH = objs/disk/
 DISK_OBJS = $(DISK_OBJS_PATH)disk_t.o $(DISK_OBJS_PATH)disk.o $(DISK_OBJS_PATH)manager.o
 
 all: $(EJ)
+
+#Quitar este make
+bin: bin/programa bin/cpu bin/disco bin/memoria
 
 #Compila MAIN
 bin/programa: objs/main.o
@@ -55,8 +58,7 @@ clean: clean/objs clean/bin
 clean/objs:
 	find ./objs -type f -name "*.o" -exec rm {} \;
 clean/bin:
-	rm ./bin/programa ./bin/cpu ./bin/disco 
-#./bin/memoria
+	rm ./bin/programa ./bin/cpu ./bin/disco ./bin/memoria
 
 install: $(INSTALL_PROGRAMS)
 	sudo install -m 0755 bin/programa $(DESTDIR)/usr/local/bin/programa
@@ -74,3 +76,4 @@ uninstall: clean
 	sudo find /usr/local/bin -type f -name programa -exec rm {} \;
 	sudo find /usr/local/bin -type f -name cpu -exec rm {} \;
 	sudo find /usr/local/bin -type f -name disco -exec rm {} \;
+	sudo find /usr/local/bin -type f -name memoria -exec rm {} \;
