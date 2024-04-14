@@ -17,7 +17,12 @@ void manager_execute(char *arg) {
 
   if (pid == 0) {
     close(data[0]);
-    float cpu_usage = cpu_total_usage();
+    float cpu_usage;
+    if (strcmp(arg, "/") == 0) {
+            cpu_usage = cpu_total_usage();
+        } else {
+            cpu_usage = cpu_usage_pid_in_5_min(arg);
+        }
     write(data[1], &cpu_usage, sizeof(cpu_usage));
     close(data[1]);
   } else {
