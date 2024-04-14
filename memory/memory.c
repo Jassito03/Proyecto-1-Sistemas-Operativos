@@ -7,7 +7,7 @@ unsigned long memory_get_total() {
   FILE *file = fopen("/proc/meminfo", "r");
   if (!file) {
     perror("Error to execute command");
-    return 0;
+    return EXIT_FAILURE;
   }
 
   char line[LINE_SIZE];
@@ -27,7 +27,7 @@ void memory_read_process_info(const char *pid, const char *memory_type, unsigned
     FILE *file = fopen(path, "r");
     if (!file) {
         fprintf(stderr, "Failed to open %s\n", path);
-        return;
+        exit(EXIT_FAILURE);
     }
 
     char line[LINE_SIZE];
@@ -84,7 +84,7 @@ memory_t **memory_all_process(const char *memory_type, int *count) {
     DIR *dir = opendir("/proc");
     if (!dir) {
         perror("Error to open /proc");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
 
     struct dirent *entry;

@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
             return EXIT_SUCCESS;
         }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 void show_memory_usage_pid(char *pid,char *memory_type, int *pipe_fd) {
@@ -37,7 +37,7 @@ void show_memory_usage_pid(char *pid,char *memory_type, int *pipe_fd) {
         memory_t memory = memory_usage_pid(pid, memory_type);
         write(pipe_fd[1], &memory, sizeof(memory));
         close(pipe_fd[1]);
-        exit(0);
+        exit(EXIT_SUCCESS);
     } else if (child_pid > 0) {
         close(pipe_fd[1]);
         waitpid(child_pid, NULL, 0);
@@ -57,7 +57,7 @@ void show_real_memory_usage_all(int *pipe_fd) {
         close(pipe_fd[0]);
         memory_show_all_process(pipe_fd[1], "VmRSS:");
         close(pipe_fd[1]);
-        exit(0);
+        exit(EXIT_SUCCESS);
     } else if (pid > 0) {
         close(pipe_fd[1]);
         char buffer[1024];
@@ -82,7 +82,7 @@ void show_virtual_memory_usage_all(int *pipe_fd) {
         close(pipe_fd[0]);
         memory_show_all_process(pipe_fd[1], "VmSize:");
         close(pipe_fd[1]);
-        exit(0);
+        exit(EXIT_SUCCESS);
     } else if (pid > 0) {
         close(pipe_fd[1]);
         char buffer[1024];
