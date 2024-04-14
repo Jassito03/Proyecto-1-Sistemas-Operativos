@@ -9,6 +9,22 @@
 #define BIN_DISK "/usr/local/bin/disco"
 #define BIN_MEMORY "/usr/local/bin/memoria"
 
+
+void main_arguments_pid(char *command, char *arg[]){
+  pid_t pid = fork();
+  if (pid < 0) {
+    perror("Error al ejecutar el comando");
+    exit(EXIT_FAILURE);
+  }
+
+  if (pid == 0) {
+    execl(command, command,arg[2], arg[3], NULL);
+  } else {
+    waitpid(pid, NULL, 0);
+    exit(EXIT_SUCCESS);
+  }
+}
+
 void main_not_arguments(char *command, char *arg[]) {
   pid_t pid = fork();
   if (pid < 0) {
@@ -65,16 +81,16 @@ int main(int argc, char *argv[]) {
     }else if (strcmp(argv[1], "memoria")== 0) {
       if (argc == 3) {
         if (strcmp(argv[2], "-v") == 0) {
-          // Se ejecuta el programa DISCO con el argumento -tm
+          // Se ejecuta el programa MEMORIA con el argumento -v
           main_arguments(BIN_MEMORY, argv);
         }
         if (strcmp(argv[2], "-r") == 0) {
-          // Se ejecuta el programa DISCO con el argumento -tg
+          // Se ejecuta el programa MEMORIA con el argumento -r
           main_arguments(BIN_MEMORY, argv);
         }
       } else if (argc == 4) {
-        // Se ejecuta el programa DISCO
-        main_not_arguments(BIN_MEMORY, argv);
+        // Se ejecuta el programa MEMORIA con argumentos [-v o -r] y el PID
+        main_arguments_pid(BIN_MEMORY, argv);
       }
     } else {
       fprintf(stderr, "Uso: %s [cpu] [PID opcional]\n", argv[0]);
