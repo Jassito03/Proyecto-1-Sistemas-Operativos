@@ -8,8 +8,9 @@
 #include <sys/statvfs.h>
 
 disk_t disk_get_data(const char *);
-void disk_show_tg(float, float, float);
-void disk_show_tm(float, float, float);
-void disk_show_percentage(float, float, float);
+void disk_show_in_gib(const disk_t *);
+void disk_show_in_mib(const disk_t *);
+void disk_show_percentage(const disk_t *);
+void convert(const disk_t *, double *, double *, double *, int);
 
 #endif // DISK_H

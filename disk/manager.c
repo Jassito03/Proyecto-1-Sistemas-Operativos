@@ -5,13 +5,13 @@ void manager_execute(char *arg) {
   int data[2];
 
   if (pipe(data) == -1) {
-    perror("Error al ejecutar el comando");
+    perror("Error to execute command");
     exit(EXIT_FAILURE);
   }
 
   pid = fork();
   if (pid < 0) {
-    perror("Error al ejecutar el comando");
+    perror("Error to execute command");
     exit(EXIT_FAILURE);
   }
 
@@ -26,11 +26,11 @@ void manager_execute(char *arg) {
     disk_t read_pipe;
     read(data[0], &read_pipe, sizeof(read_pipe));
     if ((strcmp(arg, "-tm") == 0)) {
-      disk_show_tm(read_pipe.total, read_pipe.usage, read_pipe.free);
+      disk_show_in_mib(&read_pipe);
     } else if ((strcmp(arg, "-tg") == 0)) {
-      disk_show_tg(read_pipe.total, read_pipe.usage, read_pipe.free);
+      disk_show_in_gib(&read_pipe);
     } else {
-      disk_show_percentage(read_pipe.total, read_pipe.used_percentage, read_pipe.free_percentage);
+      disk_show_percentage(&read_pipe);
     }
     close(data[0]);
   }

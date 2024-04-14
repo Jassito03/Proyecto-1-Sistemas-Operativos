@@ -5,13 +5,13 @@ void manager_execute(char *arg) {
   int data[2];
 
   if (pipe(data) == -1) {
-    perror("Error al ejecutar el comando");
+    perror("Error to execute command");
     exit(EXIT_FAILURE);
   }
 
   pid = fork();
   if (pid < 0) {
-    perror("Error al ejecutar el comando");
+    perror("Error to execute command");
     exit(EXIT_FAILURE);
   }
 

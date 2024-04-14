@@ -5,12 +5,12 @@ float cpu_total_usage() {
   unsigned long user, nice, system, idle, iowait, irq, softirq, steal;
 
   if (file == NULL) {
-    perror("Error al ejecutar el comando");
+    perror("Error to execute command");
     exit(EXIT_FAILURE);
   }
 
   if (fscanf(file, "cpu %ld %ld %ld %ld %ld %ld %ld %ld", &user, &nice, &system, &idle, &iowait, &irq, &softirq, &steal) != 8) {
-    perror("Error al leer /proc/stat");
+    perror("Error to read /proc/stat");
     fclose(file);
     return -1;
   }
@@ -23,12 +23,12 @@ unsigned long cpu_total_time() {
   unsigned long user, nice, system, idle, iowait, irq, softirq, steal;
 
   if (file == NULL) {
-    perror("Error al ejecutar el comando");
+    perror("Error to execute command");
     exit(EXIT_FAILURE);
   }
 
   if (fscanf(file, "cpu %ld %ld %ld %ld %ld %ld %ld %ld", &user, &nice, &system, &idle, &iowait, &irq, &softirq, &steal) != 8) {
-    perror("Error al leer /proc/stat");
+    perror("Error to read /proc/stat");
     fclose(file);
     return -1;
   }
@@ -49,7 +49,7 @@ float cpu_usage_pid_in_5_min(const char *pid) {
   for (int i = 0; i < 5; i++) {
     file = popen(comando, "r");
     if (file == NULL) {
-      perror("Error al ejecutar el comando, verifique que este PID exista");
+      perror("Error to execute command, Verify PID exists");
       exit(EXIT_FAILURE);
     }
 
@@ -76,9 +76,9 @@ float cpu_usage_pid_in_5_min(const char *pid) {
 }
 
 void cpu_show_usage_pid_in_5_min(const char *pid, float cpu_usage) {
-  printf("La estimación de uso CPU para PID %s en los últimos 5 minutos es: %.2f\n", pid, cpu_usage);
+  printf("La estimación de uso CPU para PID %s en los últimos 5 minutos es: %.2f%%\n", pid, cpu_usage);
 }
 
 void cpu_show_usage(float cpu_usage) {
-  printf("El uso de CPU es: %.2f\n", cpu_usage);
+  printf("El uso de CPU es: %.2f%%\n", cpu_usage);
 }

@@ -5,9 +5,9 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define BIN_CPU "cpu"
-#define BIN_DISK "disco"
-#define BIN_MEMORY "memoria"
+#define BIN_CPU "/usr/local/bin/cpu"
+#define BIN_DISK "/usr/local/bin/disco"
+#define BIN_MEMORY "/usr/local/bin/memoria"
 
 void main_not_arguments(char *command, char *arg[]) {
   pid_t pid = fork();
@@ -61,6 +61,20 @@ int main(int argc, char *argv[]) {
       } else if (argc == 2) {
         // Se ejecuta el programa DISCO
         main_not_arguments(BIN_DISK, argv);
+      }
+    }else if (strcmp(argv[1], "memoria")== 0) {
+      if (argc == 3) {
+        if (strcmp(argv[2], "-v") == 0) {
+          // Se ejecuta el programa DISCO con el argumento -tm
+          main_arguments(BIN_MEMORY, argv);
+        }
+        if (strcmp(argv[2], "-r") == 0) {
+          // Se ejecuta el programa DISCO con el argumento -tg
+          main_arguments(BIN_MEMORY, argv);
+        }
+      } else if (argc == 4) {
+        // Se ejecuta el programa DISCO
+        main_not_arguments(BIN_MEMORY, argv);
       }
     } else {
       fprintf(stderr, "Uso: %s [cpu] [PID opcional]\n", argv[0]);

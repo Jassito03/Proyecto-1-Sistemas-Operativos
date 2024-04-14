@@ -56,6 +56,9 @@ objs/disk/manager.o:
 	gcc -c $(INCLUDE_DISK) disk/manager.c -o $(DISK_OBJS_PATH)manager.o
 
 #Compila MEMORY
+bin/memoria: $(MEMORY_OBJS)
+	gcc $(MEMORY_OBJS) -o bin/memoria
+
 objs/memory/memory_t.o:
 	gcc -c $(INCLUDE_MEMORY) memory/memory_t.c -o $(MEMORY_OBJS_PATH)memory_t.o
 
